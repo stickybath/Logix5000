@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="20.01" TargetName="SecondsToTime" TargetType="AddOnInstructionDefinition" TargetRevision="1.0 " TargetLastEdited="2017-09-24T03:01:55.375Z" ContainsContext="true" Owner="Windows User" ExportDate="Sat Sep 23 20:02:30 2017" ExportOptions="References DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="COENG_TemplateV17_NEAT600_032014">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Use="Target" Name="SecondsToTime" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2017-09-07T13:22:12.611Z" CreatedBy="keithmiller" EditedDate="2017-09-23T00:00:00.000Z" EditedBy="keithmiller" SoftwareRevision="v20.01"
+>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="RawSeconds" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData>00 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Time" TagType="Base" DataType="STRING" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+</Parameters>
+<LocalTags>
+<LocalTag Name="Quotient" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<DefaultData>00 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Seconds" DataType="STRING" ExternalAccess="None">
+<DefaultData>02 00 00 00 30 30 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00</DefaultData>
+<DefaultData Format="String" Length="2">
+<![CDATA['00']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Minutes" DataType="STRING" ExternalAccess="None">
+<DefaultData>02 00 00 00 30 30 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00</DefaultData>
+<DefaultData Format="String" Length="2">
+<![CDATA['00']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Colon" DataType="STRING" ExternalAccess="None">
+<DefaultData>01 00 00 00 3A 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00</DefaultData>
+<DefaultData Format="String" Length="1">
+<![CDATA[':']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Zero" DataType="STRING" ExternalAccess="None">
+<DefaultData>01 00 00 00 30 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00</DefaultData>
+<DefaultData Format="String" Length="1">
+<![CDATA['0']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Buffer" DataType="STRING" ExternalAccess="None">
+<DefaultData>07 00 00 00 30 3A 30 30 3A 30 30 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00</DefaultData>
+<DefaultData Format="String" Length="7">
+<![CDATA['0:00:00']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Hours" DataType="STRING" ExternalAccess="None">
+<DefaultData>01 00 00 00 30 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00</DefaultData>
+<DefaultData Format="String" Length="1">
+<![CDATA['0']]>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Remainder" DataType="DINT" Radix="Decimal" ExternalAccess="None">
+<DefaultData>00 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[hours]]>
+</Comment>
+<Text>
+<![CDATA[[DIV(RawSeconds,3600,Quotient) MOD(RawSeconds,3600,Remainder) ,DTOS(Quotient,Hours) ];]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[minutes]]>
+</Comment>
+<Text>
+<![CDATA[[DIV(Remainder,60,Quotient) MOD(Remainder,60,Remainder) ,DTOS(Quotient,Minutes) ,LES(Minutes.LEN,2) CONCAT(Zero,Minutes,Minutes) ];]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[seconds]]>
+</Comment>
+<Text>
+<![CDATA[[MOV(Remainder,Quotient) ,DTOS(Quotient,Seconds) ,LES(Seconds.LEN,2) CONCAT(Zero,Seconds,Seconds) ];]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[buffer]]>
+</Comment>
+<Text>
+<![CDATA[CONCAT(Hours,Colon,Buffer)CONCAT(Buffer,Minutes,Buffer)CONCAT(Buffer,Colon,Buffer)CONCAT(Buffer,Seconds,Buffer);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[build]]>
+</Comment>
+<Text>
+<![CDATA[DELETE(Time,Time.LEN,1,Time)INSERT(Time,Buffer,1,Time);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>
