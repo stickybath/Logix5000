@@ -16,7 +16,7 @@ This add-on takes a DINT of seconds and converts it to a human-readable formatte
  -  Time (STRING)
 
  Usage - 
-  - ![Screenshot of Usage](images\SecondsToTime_1.png "Screenshot of Usage")
+  - ![Screenshot of Usage](images/SecondsToTime_1.png "Screenshot of Usage")
   ---
 
 ## DayOfWeek ##
@@ -37,5 +37,5 @@ This should replace all code that relies on the day of week being entered manual
  - - 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
 
  Usage - 
-  - ![Screenshot of Usage](images\DayOfWeek_1.png "Screenshot of Usage")
+  - ![Screenshot of Usage](images/DayOfWeek_1.png "Screenshot of Usage")
   ---
