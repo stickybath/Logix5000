@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--Day of the Week-->
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="20.03" TargetName="DayOfWeek_LD" TargetType="AddOnInstructionDefinition" TargetRevision="1.0 " TargetLastEdited="2019-04-11T18:09:46.728Z" ContainsContext="true" Owner="Windows User" ExportDate="Thu Apr 11 14:11:43 2019" ExportOptions="References DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="DayOfTheWeek">
+<DataTypes Use="Context">
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Use="Target" Name="DayOfWeek_LD" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2010-12-23T03:12:07.685Z" CreatedBy="Not Available" EditedDate="2019-04-11T18:09:46.728Z" EditedBy="Not Available" SoftwareRevision="v20.03"
+>
+<Description>
+<![CDATA[Day of the Week]]>
+</Description>
+<RevisionNote>
+<![CDATA[Ladder Diagram (LD) implementation to determine Day of the Week given Date (year, month, day of the month)]]>
+</RevisionNote>
+<AdditionalHelpText>
+<![CDATA[Day of the Week
+
+This instruction takes a given Date and returns the Day of the Week
+  (0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat)
+
+The given date is assumed valid (exists on the common Gregorian
+calendar) -- it won't warn you if you input, say, February 30th!
+
+NOTE:  This instruction does NOT switch to Julian dates for dates
+before 1582 (or 1753 or whenever your place of interest switched
+to the Gregorian Calendar (see Wikipedia on Gregorian Calendar
+for details)!  This instruction assumes the Gregorian Calendar extends
+"indefinitely" (at least 5.8 million years) either side of "zero"!  It DOES
+handle the Gregorian 4 / 100 / 400 year rules, so Feb. 29, 2000 is a
+valid date, but Feb. 29, 2100 is not.
+
+TIP: if you leave off the "+2) MOD 7" on the last CPT, you can use
+the resulting value as a "sequential day number" for calculating the
+number of days between two dates.]]>
+</AdditionalHelpText>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Inp_Year" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Calendar Year]]>
+</Description>
+<DefaultData>DA 07 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="2010"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Month" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Calendar Month]]>
+</Description>
+<DefaultData>01 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_Day" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Calendar Day of the Montrh]]>
+</Description>
+<DefaultData>01 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_DayOfWeek" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Calculated Day of the Week 0=Sun, 1=Mon, ..., 6=Sat]]>
+</Description>
+<DefaultData>00 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="Wrk_G" DataType="DINT" Radix="Decimal" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Intermediate value, function of Year and Wrk_F]]>
+</Description>
+<DefaultData>00 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Wrk_F" DataType="DINT" Radix="Decimal" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Intermediate value, function of Month]]>
+</Description>
+<DefaultData>00 00 00 00</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<Description>
+<![CDATA[Calculate the day of the week given the date]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Day of the Week
+
+This instruction takes a given Date and returns the Day of the Week
+  (0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat)
+
+The given date is assumed valid (exists on the common Gregorian
+calendar) -- it won't warn you if you input, say, February 30th!
+
+NOTE:  This instruction does NOT switch to Julian dates for dates
+before 1582 (or 1753 or whenever your place of interest switched
+to the Gregorian Calendar (see Wikipedia on Gregorian Calendar
+for details)!  This instruction assumes the Gregorian Calendar extends
+"indefinitely" (at least 5.8 million years) either side of "zero"!  It DOES
+handle the Gregorian 4 / 100 / 400 year rules, so Feb. 29, 2000 is a
+valid date, but Feb. 29, 2100 is not.
+
+TIP: if you leave off the "+2) MOD 7" on the last CPT, you can use
+the resulting value as a "sequential day number" for calculating the
+number of days between two dates.
+
+============================================================
+CALCULATE THE DAY OF THE WEEK
+============================================================
+This version of the day of the week is based on:
+
+http://alcor.concordia.ca/~gpkatch/gdate-algorithm.html
+
+(NOTE:  ALL divisions are INTEGER -- truncated -- divisions!  So this method is FAST!)
+F = ( month + 9 ) MOD 12
+G = year - ( F / 10 )
+Gregorian DayNumber [ D ] = ( 365 * G ) + ( G / 4 ) - ( G / 100 ) + ( G / 400 ) + ( ( ( F * 306 ) + 5 ) / 10 ) + day - 1
+DayOfWeek = ( DayNumber + 3 ) MOD 7
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This rung calculates the "G" and "F" functions shown in the algorithm above.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]]>
+</Comment>
+<Text>
+<![CDATA[CPT(Wrk_F,(Inp_Month+9)MOD 12)CPT(Wrk_G,Inp_Year-(Wrk_F/10));]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This rung calculates the remainder of the algorithm.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The "Day Number" is calculated, and the MOD 7
+(remainder after division by 7) is stored as the Day of the Week.
+
+NOTE:  The "+2" offset aligns Out_DayOfWeek as:
+0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat]]>
+</Comment>
+<Text>
+<![CDATA[CPT(Out_DayOfWeek,(365*Wrk_G+(Wrk_G/4)-(Wrk_G/100)+(Wrk_G/400)+((Wrk_F*306+5)/10)+Inp_Day+2)MOD 7);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+</Controller>
+</RSLogix5000Content>
