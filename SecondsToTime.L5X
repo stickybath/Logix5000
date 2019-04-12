@@ -1,11 +1,20 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="20.01" TargetName="SecondsToTime" TargetType="AddOnInstructionDefinition" TargetRevision="1.0 " TargetLastEdited="2017-09-24T03:01:55.375Z" ContainsContext="true" Owner="Windows User" ExportDate="Sat Sep 23 20:02:30 2017" ExportOptions="References DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
-<Controller Use="Context" Name="COENG_TemplateV17_NEAT600_032014">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--SecondsToTime will convert a quantity of seconds into a human-readable string displaying the hours, minutes, and seconds of the original quantity in the format of 0:00:00. This Add-On will maintain the leading zeros of the minutes and seconds display.-->
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="20.03" TargetName="SecondsToTime" TargetType="AddOnInstructionDefinition" TargetRevision="1.1 " TargetLastEdited="2019-04-11T15:58:38.808Z" ContainsContext="true" Owner="Windows User" ExportDate="Thu Apr 11 11:59:08 2019" ExportOptions="References DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="DayOfTheWeek">
 <DataTypes Use="Context">
 </DataTypes>
 <AddOnInstructionDefinitions Use="Context">
-<AddOnInstructionDefinition Use="Target" Name="SecondsToTime" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2017-09-07T13:22:12.611Z" CreatedBy="keithmiller" EditedDate="2017-09-23T00:00:00.000Z" EditedBy="keithmiller" SoftwareRevision="v20.01"
+<AddOnInstructionDefinition Use="Target" Name="SecondsToTime" Revision="1.1" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2017-09-07T13:22:12.611Z" CreatedBy="keithmiller" EditedDate="2019-04-11T15:58:38.808Z" EditedBy="NULL" SoftwareRevision="v20.03"
 >
+<Description>
+<![CDATA[SecondsToTime will convert a quantity of seconds into a human-readable string displaying the hours, minutes, and seconds of the original quantity in the format of 0:00:00. This Add-On will maintain the leading zeros of the minutes and seconds display.]]>
+</Description>
+<RevisionNote>
+<![CDATA[7Sept2017 - KM Initial Commit.
+
+11April2019 - MSC Extended comments.]]>
+</RevisionNote>
 <Parameters>
 <Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
 <Description>
@@ -110,7 +119,7 @@
 <RLLContent>
 <Rung Number="0" Type="N">
 <Comment>
-<![CDATA[hours]]>
+<![CDATA[Convert inputted seconds into hours.]]>
 </Comment>
 <Text>
 <![CDATA[[DIV(RawSeconds,3600,Quotient) MOD(RawSeconds,3600,Remainder) ,DTOS(Quotient,Hours) ];]]>
@@ -118,7 +127,8 @@
 </Rung>
 <Rung Number="1" Type="N">
 <Comment>
-<![CDATA[minutes]]>
+<![CDATA[Convert remaining seconds (after extracting full hours) into minutes.
+If minutes is only 1 number in length, add leading zero to string.]]>
 </Comment>
 <Text>
 <![CDATA[[DIV(Remainder,60,Quotient) MOD(Remainder,60,Remainder) ,DTOS(Quotient,Minutes) ,LES(Minutes.LEN,2) CONCAT(Zero,Minutes,Minutes) ];]]>
@@ -126,7 +136,8 @@
 </Rung>
 <Rung Number="2" Type="N">
 <Comment>
-<![CDATA[seconds]]>
+<![CDATA[Convert remaining seconds (after extracting full hours and minutes) into seconds.
+If seconds is only 1 number in length, add leading zero to string.]]>
 </Comment>
 <Text>
 <![CDATA[[MOV(Remainder,Quotient) ,DTOS(Quotient,Seconds) ,LES(Seconds.LEN,2) CONCAT(Zero,Seconds,Seconds) ];]]>
@@ -134,7 +145,7 @@
 </Rung>
 <Rung Number="3" Type="N">
 <Comment>
-<![CDATA[buffer]]>
+<![CDATA[Concatinate Hours, Minutes, & Seconds into human-readable format.]]>
 </Comment>
 <Text>
 <![CDATA[CONCAT(Hours,Colon,Buffer)CONCAT(Buffer,Minutes,Buffer)CONCAT(Buffer,Colon,Buffer)CONCAT(Buffer,Seconds,Buffer);]]>
@@ -142,7 +153,7 @@
 </Rung>
 <Rung Number="4" Type="N">
 <Comment>
-<![CDATA[build]]>
+<![CDATA[Store finished string into output parameter.]]>
 </Comment>
 <Text>
 <![CDATA[DELETE(Time,Time.LEN,1,Time)INSERT(Time,Buffer,1,Time);]]>
